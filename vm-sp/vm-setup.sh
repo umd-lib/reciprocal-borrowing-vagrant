@@ -8,23 +8,6 @@
 # Configure the environment
 source /vagrant/vagrant_env_config.sh
 
-# Install csh
-#echo --- Installing csh ---
-#yum -y install csh
-
-# Install expect
-#echo --- Installing expect ---
-#yum -y install expect
-
-# Setup the "service" user account
-bash /vagrant/vm-setup/service_user_setup.sh
-
-# Add service account to sudoers
-echo "$SERVICE_USER_ACCOUNT_NAME           ALL=(ALL)       NOPASSWD: ALL" >> /etc/sudoers
-
-## Setup Apache Tomcat
-#bash /vagrant/vm-setup/tomcat/tomcat_setup.sh
-
 # Install Apache
 echo --- Installing Apache ---
 yum -y install httpd
@@ -32,10 +15,6 @@ yum -y install httpd
 # Install SSL
 echo --- Installing SSL ---
 yum -y install mod_ssl openssl
-
-# Start Apache
-#echo --- Starting Apache ---
-#apachectl start
 
 # Install Git
 echo --- Installing Git ---
@@ -50,12 +29,13 @@ echo --- Installing Shibboleth ---
 sudo wget --quiet http://download.opensuse.org/repositories/security://shibboleth/CentOS_7/security:shibboleth.repo -O /etc/yum.repos.d/shibboleth.repo
 sudo yum -y install shibboleth.x86_64
 
-# Create apps directory
 # Create APPS_DIR, if needed.
 if [ ! -d "$APPS_DIR" ]; then 
   sudo mkdir -p $APPS_DIR
-  chown $SERVICE_USER_ACCOUNT_NAME:$SERVICE_USER_ACCOUNT_NAME $APPS_DIR
 fi
+
+# Ensure that APPS_DIR is owned by the service user
+sudo chown $SERVICE_USER_ACCOUNT_NAME:$SERVICE_USER_ACCOUNT_NAME $APPS_DIR
 
 # Run the rest of the script as the service user
 sudo -i -u $SERVICE_USER_ACCOUNT_NAME bash /vagrant/vm-setup/run_as_service_user.sh

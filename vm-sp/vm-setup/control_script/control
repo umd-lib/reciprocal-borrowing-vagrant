@@ -1,0 +1,25 @@
+#!/bin/bash
+case "$1" in
+  start)
+    echo === Starting Shibboleth SP client ===
+    sudo systemctl start shibd.service
+    echo === Starting Reciprocal Borrowing ===
+    echo start: `/bin/date` >> control.log
+    (cd ./apache; ./control start)
+    ;;
+  stop)
+    echo === Stopping Reciprocal Borrowing ===
+    echo 'stop: ' `/bin/date` >> control.log
+    (cd ./apache; ./control stop)
+    echo === Stopping Shibboleth SP client ===
+    sudo systemctl stop shibd.service
+    ;;
+  restart)
+    ./control stop
+    sleep 5
+    ./control start
+    ;;
+  *)
+    echo invalid option
+    ;;
+esac

@@ -17,4 +17,17 @@ bash /vagrant/vm-setup/apache_setup.sh
 # Setup Rails application
 bash /vagrant/vm-setup/rails_app_setup.sh
 
+# Configure Shibboleth client
+bash /vagrant/vm-setup/shibboleth_sp_setup.sh
+
+# Copy control script
+echo --- Copying 'control' script ---
+sudo cp /vagrant/vm-setup/control_script/control $APPS_DIR/
+sudo chmod 755 $APPS_DIR/control
+
+# Start the application
+echo --- Starting the application ---
+cd $APPS_DIR
+./control start
+
 echo --- Done ---

@@ -12,9 +12,9 @@
 # APPS_DIR: Directory where downloaded applications are installed
 APPS_DIR=/apps
 
-#-----------------
-# shib User Account
-#-----------------
+#---------------------
+# Service User Account
+#---------------------
 SERVICE_USER_ACCOUNT_NAME=shib
 SERVICE_USER_ACCOUNT_PASSWORD=shib
 

@@ -5,14 +5,24 @@
 # Configure the environment
 source /vagrant/vagrant_env_config.sh
 
-# Install Shibboleth IdP
-echo --- Installing Shibboleth IdP ---
-cd /apps
-curl -O http://shibboleth.net/downloads/identity-provider/2.3.8/shibboleth-identityprovider-2.3.8-bin.zip
-unzip shibboleth-identityprovider-2.3.8-bin.zip
-#cd identityprovider
+# Configure Apache
+bash /vagrant/vm-setup/apache_setup.sh
+
+# Shibboleth IdP setup
+bash /vagrant/vm-setup/shibboleth_idp_setup.sh
+
+# Shibboleth IdP credentials setup
+bash /vagrant/vm-setup/idp_credentials_setup.sh
+
+# Tomcat setup
+bash /vagrant/vm-setup/tomcat_idp_config_setup.sh
+
+# Start Apache
+echo --- Starting Apache ---
+sudo /etc/init.d/httpd start
 
 echo -- Starting Tomcat ---
-$APACHE_TOMCAT_ALIAS_DIR/bin/daemon.sh --tomcat-user $SERVICE_USER_ACCOUNT_NAME --java-home /usr/java/latest start
+cd /apps/tomcat
+./control start
 
 echo --- Done ---

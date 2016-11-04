@@ -6,11 +6,11 @@
 # Configure the environment
 source /vagrant/vagrant_env_config.sh
 
-echo --- Cloning Reciprocal Borrowing application from GitHub ---
-cd $APPS_DIR
-git clone https://github.com/umd-lib/reciprocal-borrowing.git
+source /home/$SERVICE_USER_ACCOUNT_NAME/.rvm/scripts/rvm
 
-echo --- Setting up Reciprocal Borrowing application ---
-cd reciprocal-borrowing
+echo --- Setting up Rails application ---
+cd $APPS_DIR/reciprocal-borrowing
+
+echo -- Installing Gems for Rails application ---
 bundle install
 

@@ -38,10 +38,6 @@ yum -y install httpd
 echo --- Installing SSL ---
 yum -y install mod_ssl openssl
 
-# Start Apache
-echo --- Starting Apache ---
-/etc/init.d/httpd start
-
 # Install Git
 echo --- Installing Git ---
 sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm

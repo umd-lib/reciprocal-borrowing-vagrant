@@ -36,6 +36,6 @@ sed -i "s|SED_APPS_DIR|$APPS_DIR|g" $APPS_DIR/apache/conf.d/00-virtualhosts.conf
 sed -i "s/SED_SERVICE_USER_ACCOUNT_NAME/$SERVICE_USER_ACCOUNT_NAME/g" $APPS_DIR/apache/conf.d/00-virtualhosts.conf
 
 echo --- Copying SSL certificates ---
-sudo cp /vagrant/vm-setup/ssl_certs/self_signed.crt /etc/pki/tls/certs
+sudo cp /vagrant/vm-setup/ssl_certs/self_signed.crt /etc/pki/tls/certs/self_signed.crt
 sudo cp /vagrant/vm-setup/ssl_certs/self_signed.key /etc/pki/tls/private/self_signed.key
 sudo cp /vagrant/vm-setup/ssl_certs/self_signed.csr /etc/pki/tls/private/self_signed.csr

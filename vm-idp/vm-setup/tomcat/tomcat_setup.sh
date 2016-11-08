@@ -7,11 +7,7 @@ source /vagrant/vagrant_env_config.sh
 
 echo -- Apache Tomcat Install ---
 
-# Use default service account of "ole" if a service account is not specified.
-#if [ -n ${SERVICE_USER_ACCOUNT_NAME} ]; then
-#  echo SERVICE_USER_ACCOUNT_NAME not defined.
-#  exit 1
-#fi
+# Use service account
 : ${SERVICE_USER_ACCOUNT_NAME:?"SERVICE_USER_ACCOUNT_NAME not defined."; exit 1}
 
 # Retrieve Apache Tomcat

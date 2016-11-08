@@ -38,10 +38,5 @@ yum -y install httpd
 echo --- Installing SSL ---
 yum -y install mod_ssl openssl
 
-# Install Git
-echo --- Installing Git ---
-sudo rpm -Uvh http://dl.fedoraproject.org/pub/epel/5/i386/epel-release-5-4.noarch.rpm
-sudo yum -y install git
-
 # Run the rest of the script as the service user
 sudo -i -u $SERVICE_USER_ACCOUNT_NAME bash /vagrant/vm-setup/run_as_service_user.sh

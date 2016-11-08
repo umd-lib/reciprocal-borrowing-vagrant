@@ -6,35 +6,35 @@
 source /vagrant/vagrant_env_config.sh
 
 echo --- Installing Shibboleth IdP ---
-cd /apps
-curl -O http://shibboleth.net/downloads/identity-provider/2.3.8/shibboleth-identityprovider-2.3.8-bin.zip
-unzip shibboleth-identityprovider-2.3.8-bin.zip
+cd $APPS_DIR
+curl -O $SHIBBOLETH_IDP_URL
+unzip $SHIBBOLETH_IDP_FILENAME
 
 
 echo --- Configuring Shibboleth IdP ---
-cd /apps/shibboleth-identityprovider-2.3.8
+cd $APPS_DIR/$SHIBBOLETH_IDP_DIR
 export JAVA_HOME=/usr/java/latest/
 
 expect <<- DONE
-  spawn /apps/shibboleth-identityprovider-2.3.8/install.sh
+  spawn $APPS_DIR/$SHIBBOLETH_IDP_DIR/install.sh
   set timeout -1
   expect "Where"
-  send "/apps/shibboleth-idp\r"
+  send "$SHIBBOLETH_IDP_INSTALL_DIR\r"
   
   expect "*fully qualified hostname*"
-  send "192.168.33.10\r"
+  send "$HOSTNAME\r"
   
   expect "*enter a password*"
-  send "shib\r"
+  send "$SERVICE_USER_ACCOUNT_NAME\r"
   expect eof
 DONE
 
 echo --- Copying endorsed jars from Shibboleth IdP to Tomcat ---
 mkdir /apps/tomcat/endorsed
-cp /apps/shibboleth-identityprovider-2.3.8/endorsed/*.jar /apps/tomcat/endorsed
+cp $APPS_DIR/$SHIBBOLETH_IDP_DIR/endorsed/*.jar $APACHE_TOMCAT_ALIAS_DIR/endorsed
 
 echo --- Copying relying-party.xml ---
-cp /vagrant/vm-setup/idp_config/conf/relying-party.xml /apps/shibboleth-idp/conf/relying-party.xml
+cp /vagrant/vm-setup/idp_config/conf/relying-party.xml $SHIBBOLETH_IDP_INSTALL_DIR/conf/relying-party.xml
 
 echo --- Copying some-metadata.xml ---
-cp /vagrant/vm-setup/idp_config/metadata/some-metadata.xml /apps/shibboleth-idp/metadata/some-metadata.xml
+cp /vagrant/vm-setup/idp_config/metadata/some-metadata.xml $SHIBBOLETH_IDP_INSTALL_DIR/metadata/some-metadata.xml

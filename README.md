@@ -129,14 +129,14 @@ The IdP Vagrant machine uses the following application:
 
 * Java SDK
 * Expect
-* Git
+* Apache Httpd
 * OpenSSL
 * Apache Tomcat
 * Shibboleth Identity Provider
 
 The Java SDK is installed using the JDK RPM file downloaded as part of Prerequisite #1.
 
-Expect, Git, and OpenSSL are installed via the "yum" package manager.
+Expect, Apache Httpd, and OpenSSL are installed via the "yum" package manager.
 
 Apache Tomcat and the Shibboleth Identity Provider are downloaded from the Internet and installed using Vagrant provisioning scripts.
 

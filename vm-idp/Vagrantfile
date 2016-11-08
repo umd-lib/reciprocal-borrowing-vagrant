@@ -5,6 +5,7 @@
 VAGRANTFILE_API_VERSION = "2"
 
 # The IP address for the server.
+# Also stored in vagrant_env_config.sh.
 private_ip = "192.168.33.10"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|

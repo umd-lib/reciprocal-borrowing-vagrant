@@ -12,11 +12,11 @@ sudo chown $SERVICE_USER_ACCOUNT_NAME:$SERVICE_USER_ACCOUNT_NAME /usr/local/idp
 mkdir /usr/local/idp/credentials
 
 expect <<- DONE
-  spawn htpasswd -c /usr/local/idp/credentials/user.db myself
+  spawn htpasswd -c /usr/local/idp/credentials/user.db $SAMPLE_USERNAME
   set timeout -1
   expect "New password"
-  send "shib\r"
+  send "$SAMPLE_PASSWORD\r"
   expect "Re-type new password"
-  send "shib\r"
+  send "$SAMPLE_PASSWORD\r"
   expect eof
 DONE

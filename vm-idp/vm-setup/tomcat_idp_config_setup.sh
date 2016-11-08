@@ -6,7 +6,7 @@
 source /vagrant/vagrant_env_config.sh
 
 echo --- Configuring Tomcat Server ---
-sudo cp /vagrant/vm-setup/tomcat_config/conf/server.xml /apps/tomcat/conf/server.xml
+sudo cp /vagrant/vm-setup/tomcat_config/conf/server.xml $APACHE_TOMCAT_ALIAS_DIR/conf/server.xml
 
 echo --- Copying IdP War file ---
-cp /apps/shibboleth-idp/war/idp.war /apps/tomcat/webapps
+cp $SHIBBOLETH_IDP_INSTALL_DIR/war/idp.war $APACHE_TOMCAT_ALIAS_DIR/webapps

@@ -38,3 +38,27 @@ APACHE_TOMCAT_COMMON_DAEMON_SRC_DIR=commons-daemon-1.0.15-native-src
 
 # APACHE_TOMCAT_ALIAS_DIR - Location of alias directory for accessing Tomcat
 APACHE_TOMCAT_ALIAS_DIR=$APPS_DIR/tomcat
+
+#---------------
+# Shibboleth IdP
+#---------------
+SHIBBOLETH_IDP_URL=http://shibboleth.net/downloads/identity-provider/2.3.8/shibboleth-identityprovider-2.3.8-bin.zip
+SHIBBOLETH_IDP_FILENAME=${SHIBBOLETH_IDP_URL##*/}
+SHIBBOLETH_IDP_DIR=${SHIBBOLETH_IDP_FILENAME%-bin.zip}
+
+# SHIBBOLETH_IDP_INSTALL_DIR - Location of installed Shibboleth
+SHIBBOLETH_IDP_INSTALL_DIR=$APPS_DIR/shibboleth-idp
+
+#------------
+# Credentials
+#------------
+# Username to use when authenticating via Shibboleth
+SAMPLE_USERNAME=myself
+
+# Password to use when authenticating via Shibboleth
+SAMPLE_PASSWORD=shib
+
+#-----
+# Misc
+#-----
+HOSTNAME=192.168.33.10

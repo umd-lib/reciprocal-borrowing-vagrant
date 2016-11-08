@@ -14,8 +14,7 @@ for setting up a production Shibboleth instance.
 
 ### Prerequisite 1: Java JDK
 
-The IdP Vagrant configuration requires the Java JDK. Download the jdk-7u79-linux-x64.rpm file from Oracle (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
-and placed in vagrant_shared/oracle_jdk/required/ directory.
+The IdP Vagrant configuration requires the Java JDK. Download the jdk-7u79-linux-x64.rpm file from Oracle (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) and placed in the vagrant_shared/oracle_jdk/required/ directory.
 
 ### Prerequisite 2: Rails Application
 
@@ -99,9 +98,16 @@ repo> vagrant up
 
 ### Starting and Stopping Rails
 
-The Rails application is started automatically. To stop and start the Rails application, as the "vagrant" user, the "control" script in the /apps/borrow/ directory i.e.:
+The Rails application is started automatically. To stop and start the Rails application:
 
-To stop the Rails application:
+1) Login to the Vagrant SP machine:
+
+```
+(In the vm-sp subdirectory)
+repo> vagrant ssh
+```
+
+2) To stop the Rails application:
 
 ```
 sp> cd /apps/borrow
@@ -114,10 +120,6 @@ The start the Rails application:
 sp> cd /apps/borrow
 sp> ./control start
 ```
-
-### Access the Rails application
-
-Once the SP machine is running, the Rails application can be accessed via a web browser at [https://192.168.33.20/](https://192.168.33.20/)
 
 ----
 
@@ -146,7 +148,7 @@ The [vagrant_env_config.sh](vagrant_env_config.sh) file contains parameters that
 1) Build the IdP virtual machine by running the "vagrant up" command:
 
 ```
-repo> cd vm-sp
+repo> cd vm-idp
 repo> vagrant up
 ```
 
@@ -157,7 +159,8 @@ The Shibboleth IdP application will not typically need to be stopped and started
 1) Login to the Vagrant IdP machine:
 
 ```
-> vagrant ssh
+(In the vm-idp subdirectory)
+repo> vagrant ssh
 ```
 
 2) Switch to the "shib" service account:
@@ -181,6 +184,28 @@ idp> cd /apps/tomcat
 idp> ./control start
 idp> sudo /etc/init.d/httpd start
 ```
+
+## Usage
+
+Once both the SP and IdP Vagrant machines are up, the Rails application can be accessed via a web browser at [https://192.168.33.20/](https://192.168.33.20/).
+
+**Note:** Because both the SP and IdP use self-signed SSL certificates, the browser will display warnings. These are expected, and should not occur in a production environment using real SSL certificates.
+
+To demonstrate a Shibboleth interaction, do the following:
+
+1) In a web browser, go to [https://192.168.33.20/](https://192.168.33.20/). A home page with a list of institutions will be displayed.
+
+2) Select the "University of Maryland" link from the list.
+
+3) The browser will display a password dialog. Type in the following:
+
+| Field    | Value  |
+| -------- | ------ |
+| Username | myself |
+| Password | shib   |
+
+4) The browser will display a result page.
+
 
 ## Troubleshooting Shibboleth
 

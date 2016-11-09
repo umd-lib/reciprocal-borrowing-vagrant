@@ -46,8 +46,8 @@ chmod 544 jsvc
 # Create setenv.sh script for setting Tomcat defaults
 cat <<EOT  >> setenv.sh
 CATALINA_HOME=$APACHE_TOMCAT_ALIAS_DIR
-# Java needs more memory to run Kuali OLE code
-JAVA_OPTS="-Xms1024m -Xmx2048m -XX:MaxPermSize=512m"
+# Uncomment the following line if Java needs more memory to run
+#JAVA_OPTS="-Xms1024m -Xmx2048m -XX:MaxPermSize=512m"
 # To enable Eclipse debugger, uncomment the following line
 #JAVA_OPTS="\$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"
 export CATALINA_HOME JAVA_OPTS

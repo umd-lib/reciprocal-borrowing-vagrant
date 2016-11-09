@@ -2,6 +2,8 @@
 
 This repository contains a Vagrant configuration for setting up an IdP and SP for use in developing the "reciprocal-borrowing" Rails application.
 
+For more information about the configuration, see [docs/ConfigurationNotes.md](docs/ConfigurationNotes.md).
+
 ----
 **Warning:**
 

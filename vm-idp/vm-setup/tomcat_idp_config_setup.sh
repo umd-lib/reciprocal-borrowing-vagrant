@@ -6,6 +6,8 @@
 source /vagrant/vagrant_env_config.sh
 
 echo --- Configuring Tomcat Server ---
+# Make backup of original file
+cp -p $APACHE_TOMCAT_ALIAS_DIR/conf/server.xml $APACHE_TOMCAT_ALIAS_DIR/conf/server.xml.dist
 sudo cp /vagrant/vm-setup/tomcat_config/conf/server.xml $APACHE_TOMCAT_ALIAS_DIR/conf/server.xml
 
 echo --- Copying IdP War file ---

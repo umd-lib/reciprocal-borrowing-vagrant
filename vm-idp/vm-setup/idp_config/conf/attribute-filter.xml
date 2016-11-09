@@ -55,8 +55,22 @@
     <!-- 
         Release the given name of the user to our portal service provider
     -->
+    <!--
     <afp:AttributeFilterPolicy>
-        <afp:PolicyRequirementRule xsi:type="basic:AttributeRequesterString" value="https://192.168.33.20/shibboleth" />
+        <afp:PolicyRequirementRule xsi:type="basic:AttributeRequesterString" value="urn:example.org:sp:myPortal" />
+
+        <afp:AttributeRule attributeID="givenName">
+            <afp:PermitValueRule xsi:type="basic:ANY" />
+        </afp:AttributeRule>
+    </afp:AttributeFilterPolicy>
+    -->
+    
+    <!--
+         Release eduPersonAffiliation and eduPersonEntitlement to SP
+    -->
+    <afp:AttributeFilterPolicy>
+        <afp:PolicyRequirementRule xsi:type="basic:AttributeRequesterString" 
+                                   value="https://192.168.33.20/shibboleth" />
         <afp:AttributeRule attributeID="eduPersonAffiliation">
             <afp:PermitValueRule xsi:type="basic:ANY" />
         </afp:AttributeRule>

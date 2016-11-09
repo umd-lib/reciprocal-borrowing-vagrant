@@ -36,5 +36,11 @@ cp $APPS_DIR/$SHIBBOLETH_IDP_DIR/endorsed/*.jar $APACHE_TOMCAT_ALIAS_DIR/endorse
 echo --- Copying relying-party.xml ---
 cp /vagrant/vm-setup/idp_config/conf/relying-party.xml $SHIBBOLETH_IDP_INSTALL_DIR/conf/relying-party.xml
 
+echo --- Copying attribute-resolver.xml ---
+cp /vagrant/vm-setup/idp_config/conf/attribute-resolver.xml $SHIBBOLETH_IDP_INSTALL_DIR/conf/attribute-resolver.xml
+
+echo --- Copying attribute-filter.xml ---
+cp /vagrant/vm-setup/idp_config/conf/attribute-filter.xml $SHIBBOLETH_IDP_INSTALL_DIR/conf/attribute-filter.xml
+
 echo --- Copying some-metadata.xml ---
 cp /vagrant/vm-setup/idp_config/metadata/some-metadata.xml $SHIBBOLETH_IDP_INSTALL_DIR/metadata/some-metadata.xml

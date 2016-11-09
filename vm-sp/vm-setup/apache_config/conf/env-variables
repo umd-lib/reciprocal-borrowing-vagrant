@@ -4,17 +4,11 @@
 ##                                                                    #
 ## This file contains environment (and branch) specific configuration #
 ##                                                                    #
-## Any changes to this file will not be merged to the other branches  #
-## when you merge between the dev, stage and production env branches. #
-##                                                                    #
-## See /apps/services/.gitattributes for merge strategy configuration #
-##                                                                    #
-##          CONFIGURATION FOR: servicesdev.lib.umd.edu                #
 ##                                                                    #
 #######################################################################
 
 # Apache variables
 export SERVER_NAME=SED_HOSTNAME
-export SSL_CERT_CHAIN_FILE_NAME=self_signed.crt
-export SSL_CERT_NAME=self_signed
-export SSL_KEY_NAME=self_signed
+export SSL_CERT_CHAIN_FILE_NAME=localhost.crt
+export SSL_CERT_NAME=localhost
+export SSL_KEY_NAME=localhost

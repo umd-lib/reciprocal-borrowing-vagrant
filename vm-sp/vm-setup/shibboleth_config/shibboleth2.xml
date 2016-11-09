@@ -70,18 +70,29 @@
             helpLocation="/about.html"
             styleSheet="/shibboleth-sp/main.css"/>
         
-        <!-- Example of remotely supplied batch of signed metadata. -->
+        <!-- MetadataProvider config for Vagrant IdP -->
         <MetadataProvider type="XML" uri="http://192.168.33.10/idp/profile/Metadata/SAML"
               backingFilePath="federation-metadata.xml" reloadInterval="7200">
-<!--
-            <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
-            <MetadataFilter type="Signature" certificate="fedsigner.pem"/>
--->
+              
             <DiscoveryFilter type="Blacklist" matcher="EntityAttributes" trimTags="true"
               attributeName="http://macedir.org/entity-category"
               attributeNameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
               attributeValue="http://refeds.org/category/hide-from-discovery" />
         </MetadataProvider>
+        
+        <!-- Example of remotely supplied batch of signed metadata. -->
+        <!--
+        <MetadataProvider type="XML" validate="true"
+              uri="http://example.org/federation-metadata.xml"
+              backingFilePath="federation-metadata.xml" reloadInterval="7200">
+            <MetadataFilter type="RequireValidUntil" maxValidityInterval="2419200"/>
+            <MetadataFilter type="Signature" certificate="fedsigner.pem"/>
+            <DiscoveryFilter type="Blacklist" matcher="EntityAttributes" trimTags="true"
+              attributeName="http://macedir.org/entity-category"
+              attributeNameFormat="urn:oasis:names:tc:SAML:2.0:attrname-format:uri"
+              attributeValue="http://refeds.org/category/hide-from-discovery" />
+        </MetadataProvider>
+        -->
 
         <!-- Example of locally maintained metadata. -->
         <!--

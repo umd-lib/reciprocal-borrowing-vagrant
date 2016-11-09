@@ -79,7 +79,7 @@ The SP Vagrant machine uses the following application:
 
 The Apache HTTP server, Git, Shibboleth, and Passenger Phusion were installed via the "yum" package manager. See https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxRPMInstall for information about installing Shibboleth via yum.
 
-Ruby is installed system-wide via yum. The RVM (Ruby Version Manager - https://rvm.io/) is installed on the "vagrant" account. RVM is then used to install the Ruby version used by the Rails application.
+Ruby is installed system-wide via yum. The RVM (Ruby Version Manager - https://rvm.io/) is installed on the "vagrant" account, as a "single-user" install (see [https://rvm.io/rvm/install](https://rvm.io/rvm/install)). RVM is then used to install the Ruby version used by the Rails application.
 
 ### SSL Certificates
 

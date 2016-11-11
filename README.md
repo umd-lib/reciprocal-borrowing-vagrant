@@ -1,6 +1,6 @@
 # reciprocal-borrowing-vagrant
 
-This repository contains a Vagrant configuration for setting up an IdP and SP for use in developing the "reciprocal-borrowing" Rails application.
+This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the "reciprocal-borrowing" Rails application.
 
 For more information about the configuration, see [docs/ConfigurationNotes.md](docs/ConfigurationNotes.md).
 
@@ -81,10 +81,6 @@ The Apache HTTP server, Git, Shibboleth, and Passenger Phusion were installed vi
 
 Ruby is installed system-wide via yum. The RVM (Ruby Version Manager - https://rvm.io/) is installed on the "vagrant" account, as a "single-user" install (see [https://rvm.io/rvm/install](https://rvm.io/rvm/install)). RVM is then used to install the Ruby version used by the Rails application.
 
-### SSL Certificates
-
-Pre-configured self-signed SSL certificates for the Apache web server are provided in the vm-setup/ssl-certs/ directory. These are solely provided to simplify the SP Vagrant setup, and should *never* be used for production systems.
-
 ### Shibboleth Certificates
 
 Pre-configured self-signed certificates for the Shibboleth SP client are provided in the vm-setup/shibboleth_config/ directory (sp-cert.pem, sp-key.pem). The public key from sp-cert.pem is used in the /apps/shibboleth-idp/metadata/some-metadata.xml file for the IdP.
@@ -122,8 +118,6 @@ The start the Rails application:
 sp> cd /apps/borrow
 sp> ./control start
 ```
-
-----
 
 ## IdP Setup
 

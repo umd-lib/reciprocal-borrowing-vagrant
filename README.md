@@ -1,6 +1,6 @@
 # reciprocal-borrowing-vagrant
 
-This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the "reciprocal-borrowing" Rails application.
+This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the [reciprocal-borrowing](https://github.com/umd-lib/reciprocal-borrowing) Rails application.
 
 For more information about the configuration, see [docs/ConfigurationNotes.md](docs/ConfigurationNotes.md).
 

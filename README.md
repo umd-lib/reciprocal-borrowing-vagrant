@@ -245,4 +245,4 @@ The Shibboleth SP log files are located in the "/var/log/shibboleth/" directory.
 
 ## License
 
-These files are provided under the CC0 1.0 Universal license (http://creativecommons.org/publicdomain/zero/1.0/).
+See the [LICENSE](LICENSE.md) file for license rights and limitations (Apache 2.0).

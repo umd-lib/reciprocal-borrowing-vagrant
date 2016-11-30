@@ -89,7 +89,7 @@ For the Reciprocal Borrowing application the application director is "/apps/borr
 
 One important difference is that there is no distinct "service account user" (which would typically have a name such as "borrow). Instead the default "vagrant" user is used. This is necessary because the Rails application is hosted inside the Vagrant machine as a synced directory, and there was no obvious way to make the ownership of the directory compatible with a separate service account user.
 
-The Vagrant uses CentOS 7.2/Apache 2.4.6, as it is anticipated that this configuration will more closely match that used in production.
+The Vagrant uses CentOS 7.0/Apache 2.4.6, as it is anticipated that this configuration will more closely match that used in production.
 
 The configuration differs in some ways from that in the "umd-lib/tomcat-shibboleth-integration-demo" GitHub repository, largely due to the use of Ruby on Rails and Passenger Phusion, instead Java and Tomcat.
 
@@ -166,11 +166,15 @@ Contains DSS standard files, "httpdctl.c" and "Makefile" for constructing an exe
 
 Both files contains "SED_" parameters that are replaced with actual values as part of the Vagrant machine provisioning.
 
-#### vm-setup/control_script/control
+#### files/control
 
 DSS-standard "control" script for starting and stopping the individual applications making up the SP.
 
-#### vm-setup/shibboleth_config/shibboleth2.xml
+#### files/shibboleth/control
+
+DSS-standard control script for starting and stopping the shibd daemon, and returning status info about it.
+
+#### files/shibboleth/shibboleth2.xml
 
 Configuration file for the Shibboleth SP daemon. Modified the "ApplicationDefaults" stanza to set the entityID for the SP:
 
@@ -193,13 +197,13 @@ Added the following stanza to provide a MetadataProvider pointing to the IdP:
         </MetadataProvider>
 ```
 
-#### vm-setup/shibboleth_config/sp-cert.pem
+#### files/shibboleth/sp-cert.pem
 
 Public key for use in communicating with the SP. The key in this file will appear in the "some-metadata.xml" file on the IdP, so if this file is changed, the "some-metadata.xml" file on the IdP will also need to be updated.
 
 This public key should **NEVER** be used on a production system.
 
-#### vm-setup/shibboleth_config/sp-key.pem
+#### files/shibboleth/sp-key.pem
 
 Private key that corresponds to the public key in sp-cert.perm. If multiple SPs need to communicate with the IdP (and are added as "AssertionConsumerService" in the "some-metadata.xml" file on the IdP), each SP will need this private key.
 

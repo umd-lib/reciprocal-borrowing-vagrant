@@ -9,24 +9,56 @@ VAGRANTFILE_API_VERSION = "2"
 private_ip = "192.168.33.20"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  config.vm.box = "centos72-x64"
-  config.vm.box_url = "https://github.com/CommanderK5/packer-centos-template/releases/download/0.7.2/vagrant-centos-7.2.box"
+  # CentOS 7.0, RVM 1.26.11, Ruby 2.2.4
+  config.vm.box = 'peichman-umd/ruby'
 
+  config.vm.hostname = 'borrowlocal'
 
   # Increase the amount of RAM
   config.vm.provider "virtualbox" do |v|
     v.memory = 2048
   end
-  
+
   # Share an additional folder to the guest VM. This directory contains
   # scripts that are useful for multiple Vagrant configurations.
-  config.vm.synced_folder "../vagrant_shared", "/vagrant_shared"
   config.vm.synced_folder "../reciprocal-borrowing", "/apps/borrow/reciprocal-borrowing"
-  
+  config.vm.synced_folder 'dist', "/apps/dist"
+
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
   config.vm.network "private_network", ip: private_ip
-    
-  # Install and configure necessary components
-  config.vm.provision "shell", path: "vm-setup.sh"
+
+  # system packages
+  config.vm.provision 'puppet', manifest_file: 'borrow.pp'
+
+  # Open HTTP and HTTPS ports
+  config.vm.provision "shell", path: "scripts/openports.sh", args: [80, 443]
+  # Download, compile, and install Shibboleth
+  # checks in /apps/dist for a cached shibboleth-bin.tar.gz first
+  config.vm.provision "shell", path: "scripts/shibboleth.sh"
+
+  # Shibboleth config files (TODO: move to env?)
+  config.vm.provision "file", source: 'files/shibboleth/shibboleth2.xml',
+    destination: '/apps/borrow/shibboleth/etc/shibboleth/shibboleth2.xml'
+  config.vm.provision "file", source: 'files/shibboleth/sp-cert.pem',
+    destination: '/apps/borrow/shibboleth/etc/shibboleth/sp-cert.pem'
+  config.vm.provision "file", source: 'files/shibboleth/sp-key.pem',
+    destination: '/apps/borrow/shibboleth/etc/shibboleth/sp-key.pem'
+
+  config.vm.provision "shell", path: "scripts/passenger_phusion_setup.sh"
+  # Installs bundler globally (TODO: move upstream)
+  config.vm.provision "shell", path: "scripts/rvm_setup.sh", privileged: false
+  # Apache config files (TODO: move to env)
+  config.vm.provision "shell", path: "scripts/apache_setup.sh", privileged: false
+  # Bundle install rails app
+  config.vm.provision "shell", path: "scripts/rails_app_setup.sh", privileged: false
+
+  # Control scripts (TODO: move to env)
+  config.vm.provision 'file', source: 'files/shibboleth/control',
+    destination: '/apps/borrow/shibboleth/control'
+  config.vm.provision 'file', source: 'files/control',
+    destination: '/apps/borrow/control'
+
+  # start the application
+  config.vm.provision 'shell', inline: 'cd /apps/borrow && ./control start'
 end

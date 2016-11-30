@@ -1,0 +1,23 @@
+#!/bin/bash
+case "$1" in
+  start)
+    echo === Starting Reciprocal Borrowing ===
+    echo start: $(/bin/date) >> control.log
+    (cd shibboleth; ./control start)
+    (cd apache; ./control start)
+    ;;
+  stop)
+    echo === Stopping Reciprocal Borrowing ===
+    echo stop: $(/bin/date) >> control.log
+    (cd apache; ./control stop)
+    (cd shibboleth; ./control stop)
+    ;;
+  restart)
+    ./control stop
+    sleep 5
+    ./control start
+    ;;
+  *)
+    echo Unrecognixed command "$1"
+    ;;
+esac

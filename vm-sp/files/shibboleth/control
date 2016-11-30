@@ -1,0 +1,39 @@
+#!/bin/bash
+
+function getpid {
+  ps -C shibd -o pid --no-headers | head -1
+}
+
+case "$1" in
+  start)
+    echo Starting Shibboleth SP daemon shibd
+    sbin/shibd
+  ;;
+  stop)
+    echo Stopping Shibboleth SP daemon shibd
+    pid=$(getpid)
+    if [ -n "$pid" ]; then
+      kill "$pid"
+    else
+      echo No shibd process running
+    fi
+  ;;
+  restart)
+    ./control stop
+    ./control start
+  ;;
+  status)
+    pid=$(getpid)
+    if [ -n "$pid" ]; then
+      echo Shibboleth SP daemon running with PID "$pid"
+    else
+      echo Shibboleth SP daemon shibd is NOT running
+    fi
+    ;;
+  getpid)
+    getpid
+    ;;
+  *)
+    echo Unrecognized command "$1"
+    ;;
+esac

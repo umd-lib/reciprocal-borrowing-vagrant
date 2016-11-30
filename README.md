@@ -1,6 +1,6 @@
 # reciprocal-borrowing-vagrant
 
-This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the [reciprocal-borrowing](https://github.com/umd-lib/reciprocal-borrowing) Rails application.
+This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the [reciprocal-borrowing] Rails application.
 
 For more information about the configuration, see [docs/ConfigurationNotes.md](docs/ConfigurationNotes.md).
 
@@ -16,11 +16,11 @@ for setting up a production Shibboleth instance.
 
 ### Prerequisite 1: Java JDK
 
-The IdP Vagrant configuration requires the Java JDK. Download the jdk-7u79-linux-x64.rpm file from Oracle (http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) and placed in the vagrant_shared/oracle_jdk/required/ directory.
+The IdP Vagrant configuration requires the Java JDK. Download the [jdk-7u79-linux-x64.rpm](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html) file from Oracle and place it in the `vagrant_shared/oracle_jdk/required/` directory.
 
 ### Prerequisite 2: Rails Application
 
-The "reciprocal-borrowing" Rails application must be cloned into the directory containing this repository, using the following command:
+The [reciprocal-borrowing] Rails application must be cloned into the directory containing this repository, using the following command:
 
 ```
 > git clone https://github.com/umd-lib/reciprocal-borrowing.git
@@ -41,17 +41,16 @@ This directory will be synced with the /apps/borrow/reciprocal-borrowing/ direct
  
 ### Shibboleth SP Configuration
 
- * CentOS 7.2
+ * CentOS 7.0
  * IP Address: 192.168.33.20
  * Apache v2.4.6
- * Tomcat v7.0.42
  * Shibboleth v2.6.0
 
-**Note:** There is no particular rationale for using CentOS 5.10/Apache 2.2.3 for the IdP and CentOS 7.2/Apache 2.4.6 for the SP. Basically, we'd already figured out how to do an IdP on CentOS 5.1, and there seemed no reason to go through the hassle of figuring out how to make it work on CentOS 7.2. For the SP, we wanted a later CentOS version, as that would more closely mirror the production system on which the "reciprocal-borrowing" application would be based.
+**Note:** There is no particular rationale for using CentOS 5.10/Apache 2.2.3 for the IdP and CentOS 7.0/Apache 2.4.6 for the SP. Basically, we'd already figured out how to do an IdP on CentOS 5.1, and there seemed no reason to go through the hassle of figuring out how to make it work on CentOS 7.0. For the SP, we wanted a later CentOS version, as that would more closely mirror the production system on which the "reciprocal-borrowing" application would be based.
  
 ### Service Account 
 
-On the SP machine, the "vagrant" user is used as the service account. This is necessary because the Rails application directory is synced with the host machine, and there does not appear to be a way to easily change the ownership of synced directories.
+On the SP machine, the "vagrant" user is used as the service account. This is necessary because the Rails application directory is synced with the host machine, and there easy way to change the ownership of synced directories.
 
 On the IdP machine, a "shib" service user is used.
 
@@ -77,13 +76,17 @@ The SP Vagrant machine uses the following application:
 * RVM
 * Passenger Phusion
 
-The Apache HTTP server, Git, Shibboleth, and Passenger Phusion were installed via the "yum" package manager. See https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxRPMInstall for information about installing Shibboleth via yum.
+It is built on to [peichman-umd/ruby] base box, which provides RVM and Ruby.
 
-Ruby is installed system-wide via yum. The RVM (Ruby Version Manager - https://rvm.io/) is installed on the "vagrant" account, as a "single-user" install (see [https://rvm.io/rvm/install](https://rvm.io/rvm/install)). RVM is then used to install the Ruby version used by the Rails application.
+The Apache HTTP server, Git, and Passenger Phusion were installed via the "yum" package manager.
+
+In order to have proper permissions for running shibd as the service account user, Shibboleth is compiled from source. See the [Shibboleth wiki](https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxSourceBuild) for more information on the steps required to build the Shibboleth SP from source.
+
+In order to save time on subsequent vagrant up commands, the provisioning script caches the compiled Shibboleth SP and its dependent packages in a `dist/shibboleth-bin.tar.gz`. To force a recompile, siply remove this file before provisioning.
 
 ### Shibboleth Certificates
 
-Pre-configured self-signed certificates for the Shibboleth SP client are provided in the vm-setup/shibboleth_config/ directory (sp-cert.pem, sp-key.pem). The public key from sp-cert.pem is used in the /apps/shibboleth-idp/metadata/some-metadata.xml file for the IdP.
+Pre-configured self-signed certificates for the Shibboleth SP client are provided in the [files/shibboleth](files/shibboleth) directory (`sp-cert.pem`, `sp-key.pem`). The public key from `sp-cert.pem` is used in the `/apps/shibboleth-idp/metadata/some-metadata.xml` file for the IdP.
 
 ### Build the SP Vagrant machine
 
@@ -136,7 +139,7 @@ Expect, Apache Httpd, and OpenSSL are installed via the "yum" package manager.
 
 Apache Tomcat and the Shibboleth Identity Provider are downloaded from the Internet and installed using Vagrant provisioning scripts.
 
-The [vagrant_env_config.sh](vagrant_env_config.sh) file contains parameters that can be modified to adjust particular build configuration elements.
+The [`vagrant_env_config.sh`](vagrant_env_config.sh) file contains parameters that can be modified to adjust particular build configuration elements.
 
 
 ### Build the IdP Vagrant machine
@@ -246,3 +249,6 @@ The Shibboleth SP log files are located in the "/var/log/shibboleth/" directory.
 ## License
 
 See the [LICENSE](LICENSE.md) file for license rights and limitations (Apache 2.0).
+
+[reciprocal-borrowing]: https://github.com/umd-lib/reciprocal-borrowing
+[peichman-umd/ruby]: https://atlas.hashicorp.com/peichman-umd/boxes/ruby

@@ -1,0 +1,10 @@
+# vim:ft=sh
+# Server Environment
+
+# Apache variables
+export SERVER_NAME=192.168.33.20
+export SERVICE_USER=vagrant
+export SERVICE_GROUP=vagrant
+export SSL_CERT_NAME=borrowlocal.crt
+export SSL_KEY_NAME=borrowlocal.key
+export RAILS_ENV=development

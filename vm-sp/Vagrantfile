@@ -19,10 +19,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.memory = 2048
   end
 
-  # Share an additional folder to the guest VM. This directory contains
-  # scripts that are useful for multiple Vagrant configurations.
   config.vm.synced_folder "../reciprocal-borrowing", "/apps/borrow/reciprocal-borrowing"
   config.vm.synced_folder 'dist', "/apps/dist"
+  config.vm.synced_folder '/apps/git/borrow-env', '/apps/git/borrow-env'
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -36,6 +35,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Download, compile, and install Shibboleth
   # checks in /apps/dist for a cached shibboleth-bin.tar.gz first
   config.vm.provision "shell", path: "scripts/shibboleth.sh"
+  # runtime environment
+  config.vm.provision 'shell', path: 'scripts/env.sh'
+  # Apache runtime (setuid script, etc.)
+  config.vm.provision "shell", path: "scripts/apache.sh"
+  # self-signed HTTPS cert
+  config.vm.provision "shell", path: "scripts/https-cert.sh"
 
   # Shibboleth config files (TODO: move to env?)
   config.vm.provision "file", source: 'files/shibboleth/shibboleth2.xml',
@@ -45,20 +50,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "file", source: 'files/shibboleth/sp-key.pem',
     destination: '/apps/borrow/shibboleth/etc/shibboleth/sp-key.pem'
 
+  # install Passenger
   config.vm.provision "shell", path: "scripts/passenger_phusion_setup.sh"
   # Installs bundler globally (TODO: move upstream)
   config.vm.provision "shell", path: "scripts/rvm_setup.sh", privileged: false
-  # Apache config files (TODO: move to env)
-  config.vm.provision "shell", path: "scripts/apache_setup.sh", privileged: false
   # Bundle install rails app
   config.vm.provision "shell", path: "scripts/rails_app_setup.sh", privileged: false
 
-  # Control scripts (TODO: move to env)
-  config.vm.provision 'file', source: 'files/shibboleth/control',
-    destination: '/apps/borrow/shibboleth/control'
-  config.vm.provision 'file', source: 'files/control',
-    destination: '/apps/borrow/control'
-
+  # server-specific settings
+  config.vm.provision 'file', source: 'files/env', destination: '/apps/borrow/config/env'
   # start the application
-  config.vm.provision 'shell', inline: 'cd /apps/borrow && ./control start'
+  config.vm.provision 'shell', inline: 'cd /apps/borrow && ./control start', privileged: false
 end

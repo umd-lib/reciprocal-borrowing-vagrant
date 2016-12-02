@@ -42,13 +42,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # self-signed HTTPS cert
   config.vm.provision "shell", path: "scripts/https-cert.sh"
 
-  # Shibboleth config files (TODO: move to env?)
-  config.vm.provision "file", source: 'files/shibboleth/shibboleth2.xml',
-    destination: '/apps/borrow/shibboleth/etc/shibboleth/shibboleth2.xml'
+  # Shibboleth certs
   config.vm.provision "file", source: 'files/shibboleth/sp-cert.pem',
-    destination: '/apps/borrow/shibboleth/etc/shibboleth/sp-cert.pem'
+    destination: '/apps/borrow/certs/cert.pem'
   config.vm.provision "file", source: 'files/shibboleth/sp-key.pem',
-    destination: '/apps/borrow/shibboleth/etc/shibboleth/sp-key.pem'
+    destination: '/apps/borrow/certs/key.pem'
 
   # install Passenger
   config.vm.provision "shell", path: "scripts/passenger_phusion_setup.sh"
@@ -59,6 +57,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # server-specific settings
   config.vm.provision 'file', source: 'files/env', destination: '/apps/borrow/config/env'
+  config.vm.provision 'shell', inline: 'cd /apps/borrow/shibboleth && ./control configure', privileged: false
   # start the application
   config.vm.provision 'shell', inline: 'cd /apps/borrow && ./control start', privileged: false
 end

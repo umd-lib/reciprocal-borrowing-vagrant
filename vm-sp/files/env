@@ -8,3 +8,8 @@ export SERVICE_GROUP=vagrant
 export SSL_CERT_NAME=borrowlocal.crt
 export SSL_KEY_NAME=borrowlocal.key
 export RAILS_ENV=development
+
+# Shibboleth variables
+export SP_ENTITY_ID=https://192.168.33.20/shibboleth
+export SP_METADATA_URI=http://192.168.33.10/idp/profile/Metadata/SAML
+export SP_METADATA_FILE=federation-metadata.xml

@@ -6,6 +6,7 @@ export SERVER_NAME=192.168.33.20
 export SERVICE_USER=vagrant
 export SERVICE_GROUP=vagrant
 export SSL_CERT_NAME=borrowlocal.crt
+export SSL_CERT_CHAIN_FILE_NAME=DummyCertChain.crt
 export SSL_KEY_NAME=borrowlocal.key
 export RAILS_ENV=development
 
@@ -13,3 +14,10 @@ export RAILS_ENV=development
 export SP_ENTITY_ID=https://192.168.33.20/shibboleth
 export SP_METADATA_URI=http://192.168.33.10/idp/profile/Metadata/SAML
 export SP_METADATA_FILE=federation-metadata.xml
+
+# If a user attempts to go to the "attributes" page directly,
+# Shibboleth attempts to redirect them to a Discovery Service (DS).
+# Since we are not running a discovery service, the SP_DS_REDIRECT_URL
+# parameter specifies where to redirect the user (typically the application
+# home page), instead of showing an error page.
+export SP_DS_REDIRECT_URL=https://192.168.33.20/

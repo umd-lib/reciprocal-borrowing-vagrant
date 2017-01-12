@@ -21,7 +21,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder "../reciprocal-borrowing", "/apps/borrow/reciprocal-borrowing"
   config.vm.synced_folder 'dist', "/apps/dist"
-  config.vm.synced_folder '/apps/git/borrow-env', '/apps/git/borrow-env'
+  config.vm.synced_folder '../borrow-env', '/apps/git/borrow-env'
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.

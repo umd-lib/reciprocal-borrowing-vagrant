@@ -28,6 +28,19 @@ The [reciprocal-borrowing] Rails application must be cloned into the directory c
 
 This directory will be synced with the /apps/borrow/reciprocal-borrowing/ directory in the VM. It should be set to whatever branch you are interested in working with.
 
+### Prerequisite 3: Shibboleth SP server configuration
+
+The [borrow-env] server environment repository (a private BitBucket repository) must be cloned into the directory containing this repository, using the following command:
+
+```
+> git clone https://<BITBUCKET_USER_NAME>@bitbucket.org/umd-lib/borrow-env.git
+```
+
+where <BITBUCKET_USER_NAME> is your BitBucket user name. Note: If you anticipate changing the "borrow-env" configuration itself, you may want to clone a fork of the umd-lib repository, instead of the "official" repository.
+
+This directory will be synced with the /apps/git/borrow-env directory in the VM. It should be set to whatever branch you are interested in working with.
+
+
 ## VM Configuration
 
 ### Shibboleth IdP Configuration
@@ -251,4 +264,5 @@ The Shibboleth SP log files are located in the "/var/log/shibboleth/" directory.
 See the [LICENSE](LICENSE.md) file for license rights and limitations (Apache 2.0).
 
 [reciprocal-borrowing]: https://github.com/umd-lib/reciprocal-borrowing
+[borrow-env]: https://bitbucket.org/umd-lib/borrow-env
 [peichman-umd/ruby]: https://atlas.hashicorp.com/peichman-umd/boxes/ruby

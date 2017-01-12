@@ -13,6 +13,7 @@ else
     CSR=/apps/ssl/csr/borrowlocal.csr
     CRT=/apps/ssl/cert/borrowlocal.crt
     CNF=/apps/ssl/cnf/borrowlocal.cnf
+    CHAIN=/apps/ssl/cert/DummyCertChain.crt
 
     cat > "$CNF" <<END
 [ req ]
@@ -47,6 +48,15 @@ END
     openssl x509 -req -days 365 -in "$CSR" -signkey "$KEY" -out "$CRT" \
         -extensions v3_req -extfile "$CNF"
 
+    # Create a "dummy" certificate chain file. This is needed because we need
+    # to specify a chain file as part of the Apache configuration, and the file
+    # must exist and be non-empty. It doesn't check if the file it a valid SSL
+    # certificate, though, so we can use anything.
+    cat > "$CHAIN" << END
+Dummy certificate chain file
+END
+
     # cache the SSL cert info for the next run of Vagrant
     cp -rp /apps/ssl /apps/dist
+    
 fi

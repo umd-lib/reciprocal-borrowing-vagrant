@@ -51,6 +51,13 @@ This directory will be synced with the /apps/git/borrow-env directory in the VM.
  * Tomcat v6.0.39
  * Java JDK v1.7.0_79
  * Shibboleth Identity Provider v2.3.8
+
+----
+**Warning:**
+
+CentOS 5.10 was "end-of-lifed" on March 31, 2017. The configuration has been updated so the Yum package manager uses the "vault.centos.org" repository, instead of the default Yum repositories. See the "vm-idp/vm-setep/CentOS-Base.repo" file.
+
+----
  
 ### Shibboleth SP Configuration
 
@@ -63,7 +70,7 @@ This directory will be synced with the /apps/git/borrow-env directory in the VM.
  
 ### Service Account 
 
-On the SP machine, the "vagrant" user is used as the service account. This is necessary because the Rails application directory is synced with the host machine, and there easy way to change the ownership of synced directories.
+On the SP machine, the "vagrant" user is used as the service account. This is necessary because the Rails application directory is synced with the host machine, and there no easy way to change the ownership of synced directories.
 
 On the IdP machine, a "shib" service user is used.
 
@@ -95,7 +102,7 @@ The Apache HTTP server, Git, and Passenger Phusion were installed via the "yum" 
 
 In order to have proper permissions for running shibd as the service account user, Shibboleth is compiled from source. See the [Shibboleth wiki](https://wiki.shibboleth.net/confluence/display/SHIB2/NativeSPLinuxSourceBuild) for more information on the steps required to build the Shibboleth SP from source.
 
-In order to save time on subsequent vagrant up commands, the provisioning script caches the compiled Shibboleth SP and its dependent packages in a `dist/shibboleth-bin.tar.gz`. To force a recompile, siply remove this file before provisioning.
+In order to save time on subsequent vagrant up commands, the provisioning script caches the compiled Shibboleth SP and its dependent packages in a `dist/shibboleth-bin.tar.gz`. To force a recompile, simply remove this file before provisioning.
 
 ### Shibboleth Certificates
 
@@ -128,7 +135,7 @@ sp> cd /apps/borrow
 sp> ./control stop
 ```
 
-The start the Rails application:
+Then start the Rails application:
 
 ```
 sp> cd /apps/borrow

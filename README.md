@@ -1,5 +1,17 @@
 # reciprocal-borrowing-vagrant
 
+---
+
+## ARCHIVED REPOSITORY
+
+This repository has been archived, and is no longer being developed or
+maintained.
+
+See <https://github.com/umd-lib/reciprocal-borrowing-dev-env> for a
+Docker-based replacement for this repository.
+
+---
+
 This repository contains a Vagrant configuration for setting up a Shibboleth Identity Provider (IdP) and Service Provider (SP) for use in developing the [reciprocal-borrowing] Rails application.
 
 For more information about the configuration, see [docs/ConfigurationNotes.md](docs/ConfigurationNotes.md).
